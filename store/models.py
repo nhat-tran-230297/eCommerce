@@ -1,6 +1,17 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
+
+
+class ProductActiveManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+
+class ProductInstockManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_instock=True)
+
 
 # Create your models here.
 class Category(models.Model):
@@ -24,7 +35,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255, default='admin')
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', default='images/default.png')
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     is_instock = models.BooleanField(default=True)
@@ -33,6 +44,12 @@ class Product(models.Model):
     # auto_now  : trigger everytime there is an update
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
+
+    # custom Manager #
+    objects = models.Manager()      # The default manager.
+    active_products = ProductActiveManager() # active_products specific manager
+    instock_products = ProductInstockManager()  # instock_products specific manager
+
 
     class Meta:
         # order of products: latest -> oldest
