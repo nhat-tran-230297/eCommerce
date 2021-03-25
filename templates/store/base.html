@@ -60,8 +60,8 @@
           <a class="btn btn-outline-secondary" type="button" role="button" href="{% url 'basket:basket_summary' %}">
             
             <span id="basket-quantity">
-              {% if basket|length > 0 %}
-              {{ basket|length }}
+              {% if basket.get_basket_quantity > 0 %}
+              {{ basket.get_basket_quantity }}
               {% endif %}
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
