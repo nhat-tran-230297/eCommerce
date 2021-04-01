@@ -13,7 +13,7 @@ class Basket():
         
         if 'basket' not in request.session:
             basket = self.session['basket'] = {}
-            self.session['basket_quantity'] = 0
+            self.session['basket_qty'] = 0
             self.session['basket_price'] = 0
         else:
             basket = self.session['basket']
@@ -21,19 +21,19 @@ class Basket():
         self.basket = basket
 
     
-    def add(self, product, product_quantity):
+    def add(self, product, product_qty):
         """
         Add and update user's basket session data
         """
 
         product_id = str(product.id)
-        product_price = product.price * product_quantity
+        product_price = product.price * product_qty
 
         if product_id not in self.basket:
             # add new basket info to session data
             self.basket[product_id] = {
                 'total_price': str(product_price),
-                'quantity': int(product_quantity)
+                'qty': int(product_qty)
             }
         else:
             # update session basket data
@@ -41,9 +41,9 @@ class Basket():
             total_price += product_price
 
             self.basket[product_id]['total_price'] = str(total_price)
-            self.basket[product_id]['quantity'] += product_quantity
+            self.basket[product_id]['qty'] += product_qty
 
-        self.session['basket_quantity'] += product_quantity
+        self.session['basket_qty'] += product_qty
         self.session['basket_price'] += float(product_price)
 
         self.save()
@@ -58,7 +58,7 @@ class Basket():
         if product_id in self.basket:
             item = self.basket[product_id]
            
-            self.session['basket_quantity'] -= item['quantity']
+            self.session['basket_qty'] -= item['qty']
             self.session['basket_price'] -= float(item['total_price'])
 
             del self.basket[product_id]
@@ -94,9 +94,9 @@ class Basket():
         
 
     @property
-    def get_basket_quantity(self):
+    def get_basket_qty(self):
         """
-        Get the basket data and count the total quantity
+        Get the basket data and count the total qty
         """
-        return self.session['basket_quantity']
+        return self.session['basket_qty']
 

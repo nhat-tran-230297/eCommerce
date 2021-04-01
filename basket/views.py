@@ -1,13 +1,15 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+
+from store.models import Product
 
 from .basket import Basket
-from store.models import Product
+
 
 # Create your views here.
 def basket_summary(request):
     print(request.session.items())
-    return render(request, 'store/basket/summary.html')
+    return render(request, 'basket/summary.html')
 
 
 def basket_add(request):
@@ -15,13 +17,13 @@ def basket_add(request):
     
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productID'))
-        product_quantity = int(request.POST.get('productQuantity'))
+        product_qty = int(request.POST.get('productQty'))
 
         product = get_object_or_404(Product, pk=product_id)
-        basket.add(product=product, product_quantity=product_quantity)
+        basket.add(product=product, product_qty=product_qty)
 
         return JsonResponse({
-            'basket_quantity': basket.get_basket_quantity,
+            'basket_qty': basket.get_basket_qty,
             'basket_price': basket.get_basket_price,
             'item_total_price': basket.basket[str(product_id)]['total_price'],
         })
@@ -40,7 +42,7 @@ def basket_delete(request):
         basket.delete(product=product)
 
         return JsonResponse({
-            'basket_quantity': basket.get_basket_quantity,
+            'basket_qty': basket.get_basket_qty,
             'basket_price': basket.get_basket_price,
         })
 
@@ -53,13 +55,13 @@ def basket_delete(request):
 #     if request.POST.get('action') == 'post':
         
 #         product_id = int(request.POST.get('productID'))
-#         product_quantity = int(request.POST.get('productQuantity'))
+#         product_qty = int(request.POST.get('productQty'))
 
 #         product = get_object_or_404(Product, pk=product_id)
-#         basket.add(product=product, product_quantity=product_quantity)
+#         basket.add(product=product, product_qty=product_qty)
 
 #         return JsonResponse({
-#             'basket_quantity': basket.get_basket_quantity,
+#             'basket_qty': basket.get_basket_qty,
 #         })
 
 #     return JsonResponse({'success': 'failed'})
