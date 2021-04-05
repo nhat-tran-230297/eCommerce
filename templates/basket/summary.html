@@ -1,4 +1,4 @@
-{% extends "../store/base.html" %}
+{% extends "../base.html" %}
 
 {% block title %}Basket Summary{% endblock title %}
 
@@ -13,7 +13,11 @@
     </div>
     <hr />
   </div>
-  <div class="container" style="max-width: 1000px">
+
+  <div class="container">
+    {% if basket.get_basket_qty == 0 %}
+      <div>Your basket is empty. <a href="{% url 'store:product_all' %}">Back to Shop</a></div>
+    {% else %}
     
     <div class="row g-3">
       <div class="col-12 bg-light p-3 d-flex justify-content-between">
@@ -36,8 +40,8 @@
         <div class="text-end">
           
           <div class="">Sub Total: <span class="fw-bold">£</span><div id="basket-price" class="d-inline-flex fw-bold">{{ basket.get_basket_price }}</div></div>
-          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">£11.50</span></div>
-          <div class="pt-2">Total to pay: <span class="fw-bold h5">£</span><span id="total" class="fw-bold h5">{{basket.get_total_price}}</span></div>
+          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">£0.00</span></div>
+          <div class="pt-2">Total to pay: <span class="fw-bold h5">£</span><span id="total" class="fw-bold h5">{{ basket.get_basket_price }}</span></div>
           
         </div>
       </div>
@@ -108,72 +112,9 @@
     {% endwith %}
     {% endfor %}
 
-    
+    {% endif %}
   </div>
 </main>
-
-
-<!-- <main class="pt-5">
-  <div class="container" style="max-width: 1000px">
-    <h1 class="h5">Shopping basket</h1><br>
-    {% for item in basket %}
-    {% with product=item.product %}
-    <div id="item{{ product.id }}" class="row mb-4 border product-item">
-      <div class="col-md-3 col-lg-2 order-md-first bg-light">
-        <img class="img-fluid mx-auto d-block" width="120px" alt="Responsive image" src="{{ product.image.url }}">
-      </div>
-
-      <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-        <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
-          <h1 class="h5 pt-2">{{ product.title }}</h1>
-        </a>
-        <div class="border">
-          <div class="col border-bottom">
-            <div class="row p-3">
-              <div class="col-6">{{ product.description }}</div>
-              <div class="col-6 text-end h6 fw-bold">£<span id="total-price{{ product.id }}">{{ item.total_price }}</span></div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="row p-3">
-              <div class="col-12">
-                <label for="select">Qty</label>
-
-                <select id="select{{product.id}}">
-                  <option selected id="select-qty">
-                    {{ item.qty }}
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-
-                <button type="button" data-id="{{ product.id }}"
-                  class="btn btn-outline-secondary btn-sm update-button">
-                  Add
-                </button>
-
-                <button type="button" data-id="{{ product.id }}"
-                  class="btn btn-outline-secondary btn-sm delete-button">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endwith %}
-    {% endfor %}
-    <div class="col-12 text-end">
-      <div class="h6 fw-bold">Sub Total: £<div id="basket-price" class="d-inline-flex">{{basket.get_basket_price}}</div>
-      </div>
-    </div>
-  </div>
-</main> -->
 {% endblock %}
 
 {% block script %}

@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+from .utils import orders_list
 from .forms import AccountEditForm, RegistrationForm
 from .models import UserBase
 from .tokens import account_activation_token
@@ -15,7 +16,10 @@ from .tokens import account_activation_token
 
 @login_required
 def account_dashboard(request):
-    return render(request, 'account/user/dashboard.html')
+    orders = orders_list(request)
+    print(orders)
+
+    return render(request, 'account/user/dashboard.html', {'orders': orders})
 
 @login_required
 def account_edit(request):
@@ -29,6 +33,7 @@ def account_edit(request):
 
     return render(request, 'account/user/edit.html', {'edit_form': edit_form})
     
+
 @login_required
 def account_delete(request):
     user = UserBase.objects.get(pk=request.user.pk)
@@ -37,7 +42,6 @@ def account_delete(request):
     logout(request)
 
     return redirect('account:delete_confirm')
-
 
 
 def account_register(request):
@@ -67,7 +71,7 @@ def account_register(request):
 
             user.email_user(subject=subject, message=message)
 
-            return HttpResponse('Registered successfully and activation sent')
+            return render(request, 'account/registration/account_activation_complete.html')
 
     else:
         register_form = RegistrationForm()
@@ -76,7 +80,6 @@ def account_register(request):
 
 
 def account_activate(request, uidb64, token):
-    
     # uid = force_text(urlsafe_base64_decode(uidb64))
     # user = get_object_or_404(UserBase, pk=uid)
 

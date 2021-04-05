@@ -1,4 +1,4 @@
-{% extends "../../store/base.html" %} 
+{% extends "../../base.html" %} 
 
 {% block title %}Dashboard{% endblock %} 
 {% block content %}
@@ -16,14 +16,14 @@
     <hr />
   </div>
   
-  <!-- <div class="container" style="max-width: 1000px">
+  <div class="container" style="max-width: 1000px">
     {% for order in orders %}
     <div class="row g-3">
 
       <div class="col-12 bg-light p-3 d-flex justify-content-between">
         <div class="d-flex d-flex-inline">
 
-          <div class="pe-3">{{ order.created }}</div>
+          <div class="pe-3">{{ order.created_time }}</div>
           <div class="dropdown">
             <a class="text-reset text-decoration-none dropdown-toggle" href="#" role="link" id="dropdownLink"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,16 +36,16 @@
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownLink">
-              <li class="item small">{{order.full_name}}</li>
-              <li class="item small">{{order.address1}}</li>
-              <li class="item small">{{order.address2}}</li>
-              <li class="item small">{{order.post_code}}</li>
+              <li class="item small">{{ order.full_name }}</li>
+              <li class="item small">{{ order.address1 }}</li>
+              <li class="item small">{{ order.address2 }}</li>
+              <li class="item small">{{ order.post_code }}</li>
             </ul>
           </div>
 
         </div>
         <div class="text-end">
-          Total paid: <span class="fw-bold">£{{ order.total_paid }}</span>
+          Total paid: <span class="fw-bold">£{{ order.total_price }}</span>
         </div>
       </div>
       <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
@@ -79,7 +79,7 @@
       </div>
     </div>
     {% endfor %}
-  </div> -->
+  </div>
 
 </main>
 {% endblock %}

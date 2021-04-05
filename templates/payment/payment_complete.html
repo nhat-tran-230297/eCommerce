@@ -1,0 +1,11 @@
+{% extends "./payment_base.html" %}
+
+{% block title %}Payment Complete{% endblock %}
+
+{% block sub_content %}
+<div class="p-4">
+  <h3 class="mb-4">Your order has been placed</h3>
+  <p>Check your email for confirmation</p>
+  <a href="{% url 'account:dashboard' %}">See orders</a>
+</div>
+{% endblock %}

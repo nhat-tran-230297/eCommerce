@@ -1,6 +1,11 @@
 from decimal import Decimal
 
+from django.conf import settings
+
 from store.models import Product
+
+
+BASKET_SESSION_KEY = settings.BASKET_SESSION_KEY
 
 
 class Basket():
@@ -11,12 +16,12 @@ class Basket():
     def __init__(self, request):
         self.session = request.session
         
-        if 'basket' not in request.session:
-            basket = self.session['basket'] = {}
+        if BASKET_SESSION_KEY not in request.session:
+            basket = self.session[BASKET_SESSION_KEY] = {}
             self.session['basket_qty'] = 0
             self.session['basket_price'] = 0
         else:
-            basket = self.session['basket']
+            basket = self.session[BASKET_SESSION_KEY]
 
         self.basket = basket
 
@@ -67,7 +72,19 @@ class Basket():
 
 
     def save(self):
+        """
+        Save changes to basket session
+        """
         self.session.modified = True
+
+
+    def clear(self):
+        """
+        Remove basket from session (occurs when order and payment is completed)
+        """
+        del self.session[BASKET_SESSION_KEY]
+        self.save()
+
 
     def __iter__(self):
         """
