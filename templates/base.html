@@ -21,7 +21,7 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
-  <title>{% block title %}CourseStore{% endblock title %}</title>
+  <title>{% block title %}ECommerce{% endblock title %}</title>
   <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
   <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
 
@@ -30,19 +30,22 @@
 
 <body>
   <header class="pb-3">
+    <!-- Navigation bar -->
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom">
       <div class="container-fluid px-md-4">
         <div class="d-flex w-100 navbar-collapse">
           <a class="navbar-brand d-flex-inline" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-asterisk"
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-shop"
               viewBox="0 0 16 16">
               <path
-                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
             </svg>
           </a>
+
+          <!-- Category markdown -->
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle d-none d-md-block fw500" href="#" id="navbarDropdown" role="button"
+              <a class="nav-link dropdown-toggle d-md-block fw500" href="#" id="navbarDropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Library
                 <i class="ps-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -53,34 +56,27 @@
               </a>
               <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'store:product_all' %}">All</a></li>
-                {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-                  <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
-                </li>
+
+                <!-- Category list -->
+                {% for category in categories %}
+                <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name|title }}</a></li>
                 {% endfor %}
               </ul>
             </li>
           </ul>
-          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-list"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-              </svg>
-            </div>
-            <span class="fs15 fw500">Shop</span>
-          </button>
+
 
           {% if user.is_authenticated %}
           <a type="button" role="button" href="{% url 'account:dashboard' %}"
             class="btn btn-outline-secondary border-0 basket-btn">
             <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
             </div>
-            <span class="fs15 fw500">{{ user.user_name }}</span>
+            <span class="fs15 fw500">{{ user.username }}</span>
           </a>
 
           <a type="button" role="button" href="{% url 'account:logout' %}"
@@ -96,16 +92,16 @@
             <span class="fs15 fw500">Logout</span>
           </a>
 
-          
+
           {% else %}
           <a type="button" role="button" href="{% url 'account:login' %}"
             class="btn btn-outline-secondary border-0 basket-btn">
             <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                class="bi bi-door-closed" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-door-open"
+                viewBox="0 0 16 16">
+                <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
                 <path
-                  d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z" />
-                <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
+                  d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
               </svg>
             </div>
             <span class="fs15 fw500">Login</span>
@@ -156,58 +152,60 @@
 
   <div id="content">
     {% block content %}
-    {% endblock %}
+    {% endblock content%}
   </div>
 
   <footer class="container py-5 footer">
     <hr>
     <div class="row pt-4">
-      <div class="col-12 col-md">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk"
-          viewBox="0 0 16 16">
-          <path
-            d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-        </svg>
-        <small class="d-block mb-3 text-muted">&copy; 2017-2021</small>
-      </div>
       <div class="col-6 col-md fs15">
-        <h5>Features</h5>
+        <h5>Get to Know Us</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Careers</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Press Releases</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">About us</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Blog</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Sustainability</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Imprint</a></li>
         </ul>
       </div>
       <div class="col-6 col-md fs15">
-        <h5>Resources</h5>
+        <h5>Make Money with Us</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Selling</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Buying</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Payment</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Credit Card</a></li>
         </ul>
       </div>
       <div class="col-6 col-md fs15">
-        <h5>Resources</h5>
+        <h5>Products</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Business</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Education</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Government</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Courses</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Electronic Devices</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Books</a></li>
           <li><a class="link-secondary text-decoration-none" href="#">Gaming</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
-        <h5>About</h5>
+        <h5>Customer Service</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Team</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Email</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Phones</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Chat</a></li>
+          <li><a class="link-secondary text-decoration-none" href="#">Chatbot</a></li>
         </ul>
       </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
+      </svg>
+      <small class="d-block mb-3 mt-2 text-muted text-center">&copy; 2020-2021</small>
     </div>
   </footer>
 
