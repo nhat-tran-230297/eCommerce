@@ -7,22 +7,29 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from .utils import orders_list
 from .forms import AccountEditForm, RegistrationForm
 from .models import UserBase
 from .tokens import account_activation_token
+from .utils import orders_list
 
 # Create your views here.
 
 @login_required
 def account_dashboard(request):
+    """
+    Dashboard view (list of completed orders)
+    """
+
     orders = orders_list(request)
-    print(orders)
 
     return render(request, 'account/user/dashboard.html', {'orders': orders})
 
 @login_required
 def account_edit(request):
+    """
+    Update/Modify account view
+    """
+
     if request.method == 'POST':
         edit_form = AccountEditForm(instance=request.user, data=request.POST)
         if edit_form.is_valid():
@@ -36,6 +43,10 @@ def account_edit(request):
 
 @login_required
 def account_delete(request):
+    """ 
+    Delete account view
+    """
+
     user = UserBase.objects.get(pk=request.user.pk)
     user.is_active = False
     user.save()
@@ -45,6 +56,10 @@ def account_delete(request):
 
 
 def account_register(request):
+    """
+    Account register view
+    """
+
     if request.user.is_authenticated:
         return redirect('account:dashboard')
 
@@ -54,7 +69,7 @@ def account_register(request):
 
             # return a model object user, then add extra data and save it.
             user = register_form.save(commit=False)  # not save yet
-            user.email = register_form.cleaned_data['email']
+            # user.email = register_form.cleaned_data['email']
             user.set_password(register_form.cleaned_data['password'])
             user.is_active = False
             user.save()
@@ -80,6 +95,10 @@ def account_register(request):
 
 
 def account_activate(request, uidb64, token):
+    """
+    Account activation
+    """
+
     # uid = force_text(urlsafe_base64_decode(uidb64))
     # user = get_object_or_404(UserBase, pk=uid)
 
