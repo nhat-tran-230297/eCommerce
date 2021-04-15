@@ -1,19 +1,23 @@
 import json
+
 import stripe
-
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from django.http.response import HttpResponse
-from django.conf import settings
-
 from basket.basket import Basket
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
 from .utils import payment_confirmation
 
 # Create your views here.
 
 # @login_required
 def payment_detail(request):
+    """
+    Payment form
+    """
+
     basket = Basket(request)
 
     basket_price = str(basket.get_basket_price)
@@ -33,12 +37,21 @@ def payment_detail(request):
 
 
 def payment_complete(request):
+    """
+    Payment complete view
+    """
+
     basket = Basket(request)
     basket.clear()
     return render(request, 'payment/payment_complete.html')
 
+
 @csrf_exempt
 def stripe_webhook(request):
+    """
+    Sent data to webhook
+    """
+
     payload = request.body
     event = None
 
