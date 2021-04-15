@@ -4,7 +4,6 @@ from django.conf import settings
 
 from store.models import Product
 
-
 BASKET_SESSION_KEY = settings.BASKET_SESSION_KEY
 
 
