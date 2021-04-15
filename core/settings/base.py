@@ -15,7 +15,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = "%&wlwth1!(u=66s-!^97qfhtmz6-5kmyh_+_b(y9if=ppb*%1_"
+SECRET_KEY = os.environ.get("ECOMMERCE_SECRET_KEY")
 
 DEBUG = True
 
@@ -30,8 +30,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    #
-    "mptt",
     #
     "store.apps.StoreConfig",
     "basket.apps.BasketConfig",
@@ -65,6 +63,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 # this view can be access globally
                 "store.context_processors.categories",
+                "store.context_processors.currency",
+
                 "basket.context_processors.basket",
             ],
         },
@@ -136,6 +136,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Basket Session Key
 BASKET_SESSION_KEY = "basket"
+
+# Currency
+CURRENCY = '€'
 
 # Stripe Payment
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
