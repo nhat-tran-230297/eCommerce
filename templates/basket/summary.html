@@ -1,4 +1,5 @@
 {% extends "../base.html" %}
+{% load static %}
 
 {% block title %}Basket Summary{% endblock title %}
 
@@ -6,16 +7,14 @@
 <main class="pt-5">
   <div class="container" style="max-width: 1000px">
     <div class="col-12">
-      <h1 class="h2">Your Basket</h1>
+      <h1 class="h2">Shopping Basket</h1>
     </div>
-    <div class="col-12">
-      <p>Manage your <b>items</b> in your basket</p>
-    </div>
+    
     <hr />
   </div>
 
   <div class="container">
-    {% if basket.get_basket_qty == 0 %}
+    {% if basket_context_processor.get_basket_qty == 0 %}
       <div>Your basket is empty. <a href="{% url 'store:product_all' %}">Back to Shop</a></div>
     {% else %}
     
@@ -32,16 +31,16 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownLink">
-            <li class="item small">Next day delivery</li>
-            <li class="item small">Premimum delivery</li>
+            <li class="item small">Standard</li>
+            <li class="item small">Premimum</li>
           </ul>
           </div>
         </div>
         <div class="text-end">
           
-          <div class="">Sub Total: <span class="fw-bold">£</span><div id="basket-price" class="d-inline-flex fw-bold">{{ basket.get_basket_price }}</div></div>
-          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">£0.00</span></div>
-          <div class="pt-2">Total to pay: <span class="fw-bold h5">£</span><span id="total" class="fw-bold h5">{{ basket.get_basket_price }}</span></div>
+          <div class="">Sub Total: <span class="fw-bold">{{ currency_context_processor }}</span><div id="basket-price" class="d-inline-flex fw-bold">{{ basket_context_processor.get_basket_price }}</div></div>
+          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">{{ currency_context_processor }}0.00</span></div>
+          <div class="pt-2">Total to pay: <span class="fw-bold h5">{{ currency_context_processor }}</span><span id="total" class="fw-bold h5">{{ basket_context_processor.get_basket_price }}</span></div>
           
         </div>
       </div>
@@ -59,7 +58,7 @@
 
     <br>
     
-    {% for item in basket %}
+    {% for item in basket_context_processor %}
     {% with product=item.product %}
     <div id="item{{ product.id }}" class="row mb-4 border product-item">
       <div class="col-md-3 col-lg-2 order-md-first bg-light">
@@ -74,7 +73,7 @@
           <div class="col border-bottom">
             <div class="row p-3">
               <div class="col-6">{{ product.description }}</div>
-              <div class="col-6 text-end h6 fw-bold">£<span id="total-price{{ product.id }}">{{ item.total_price }}</span></div>
+              <div class="col-6 text-end h6 fw-bold">{{ currency_context_processor }}<span id="total-price{{ product.id }}">{{ item.total_price }}</span></div>
             </div>
           </div>
 
@@ -117,58 +116,14 @@
 </main>
 {% endblock %}
 
+<!-- Scripts -->
 {% block script %}
 <script>
-  // Delete item
-  $(document).on('click', '.delete-button', function(e) {
-    e.preventDefault();
-    const productID = $(this).data('id');
-
-    $.ajax({
-      type: 'POST',
-      url: '{% url "basket:basket_delete" %}',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        productID: productID,
-        action: 'delete'
-      },
-      success: (json) => {
-        $(`#item${productID}`).remove();
-
-        $('#basket-qty').html(json.basket_qty);
-        $('#basket-price').html(json.basket_price);
-      },
-      error: (xhr, errMessage, err) => {
-      }
-    })
-  })
-
-  // Update item
-  $(document).on('click', '.update-button', function(e) {
-    e.preventDefault();
-    const productID = $(this).data('id');
-    console.log(productID)
-
-    $.ajax({
-      type: 'POST',
-      url: '{% url "basket:basket_add" %}',
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        productID: productID,
-        productQty: $(`#select${productID}`).val(),
-        action: 'post'
-      },
-      success: (json) => {
-        $('#basket-qty').html(json.basket_qty);
-        $('#basket-price').html(json.basket_price);
-
-        // $('#select-qty').html(json.basket_qty);
-        $(`#total-price${productID}`).html(json.item_total_price);
-      },
-      error: (xhr, errMessage, err) => {
-      }
-    })
-  })
-
+  const CSRF_TOKEN = "{{ csrf_token }}";
+  const basketAddURL = "{% url 'basket:basket_add' %}"
+  const basketDeleteURL = "{% url 'basket:basket_delete' %}"
 </script>
+
+<script src="{% static 'basket/js/basket_update_basket_summary_view.js' %}"></script
+
 {% endblock script %}
