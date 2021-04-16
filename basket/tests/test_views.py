@@ -1,6 +1,7 @@
 from account.models import UserBase
 from django.test import TestCase
 from django.urls import reverse
+from rest_framework import status
 from store.models import Category, Product
 
 
@@ -39,7 +40,7 @@ class TestBasketView(TestCase):
         """
 
         response = self.client.get(reverse('basket:basket_summary'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     
     def test_basket_add(self):
@@ -53,7 +54,7 @@ class TestBasketView(TestCase):
             data={'productID': 3, 'productQty': 1, 'action': 'post'},xhr=True)
         data = response.json()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['basket_qty'], 4)
         self.assertEqual(data['basket_price'], '80.00')
 
@@ -63,7 +64,7 @@ class TestBasketView(TestCase):
             data={'productID': 3, 'productQty': 2, 'action': 'post'},xhr=True)
         data = response.json()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['basket_qty'], 6)
         self.assertEqual(data['basket_price'], '120.00')
 
@@ -80,6 +81,6 @@ class TestBasketView(TestCase):
         )
         data = response.json()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['basket_qty'], 1)
         self.assertEqual(data['basket_price'], '20.00')
