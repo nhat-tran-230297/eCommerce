@@ -3,8 +3,8 @@ Package List
 ###
 
 django 
-django-mptt
 django-debug-toolbar
+djangorestframework
 black
 isort
 pillow
