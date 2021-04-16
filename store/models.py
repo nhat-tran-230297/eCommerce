@@ -1,8 +1,9 @@
 # from django.contrib.auth.models import User
-from account.models import UserBase
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+
+from account.models import UserBase
 
 
 class ProductActiveManager(models.Manager):
