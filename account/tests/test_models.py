@@ -1,5 +1,6 @@
-from account.models import UserBase
 from django.test import TestCase
+
+from account.models import UserBase
 
 
 # Create your tests here.
