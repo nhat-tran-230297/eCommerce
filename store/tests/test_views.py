@@ -1,11 +1,12 @@
 from importlib import import_module
 
-from account.models import UserBase
 from django.conf import settings
 from django.http import HttpRequest
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
+
+from account.models import UserBase
 from store import views
 from store.models import Category, Product
 
