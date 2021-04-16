@@ -1,7 +1,8 @@
-from account.models import UserBase
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
+
+from account.models import UserBase
 from store.models import Category, Product
 
 
