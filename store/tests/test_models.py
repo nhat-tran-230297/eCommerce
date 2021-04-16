@@ -1,7 +1,6 @@
+from account.models import UserBase
 from django.test import TestCase
 from django.urls import reverse
-
-from account.models import UserBase
 from store.models import Category, Product
 
 
@@ -12,7 +11,7 @@ class TestCategoryModel(TestCase):
 
     def test_category_model_entry(self):
         """
-        Test Category model data insertion/types/field attributes
+        Test Category model data field attributes
         """
         data = self.data1
         self.assertTrue(isinstance(data, Category))
@@ -52,7 +51,7 @@ class TestProductModel(TestCase):
 
     def test_product_model_entry(self):
         """
-        Test product model data insertion/types/field attributes
+        Test product model data field attributes
         """
         data = self.data1
         self.assertTrue(isinstance(data, Product))
