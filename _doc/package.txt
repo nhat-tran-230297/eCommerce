@@ -5,6 +5,8 @@ Package List
 django 
 django-debug-toolbar
 djangorestframework
+django-heroku
+gunicorn
 black
 isort
 pillow
