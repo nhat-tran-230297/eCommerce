@@ -23,7 +23,7 @@ class ProductAdmin(admin.ModelAdmin):
     Product model admin
     """
 
-    list_display = ['title', 'author', 'slug', 'price', 'is_instock', 'created_time', 'updated_time']
+    list_display = ['title', 'product_code', 'author', 'slug', 'price', 'is_instock', 'created_time', 'updated_time']
     list_filter = ['is_instock', 'is_active']
     list_editable = ['price', 'is_instock']
 
