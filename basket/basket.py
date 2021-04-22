@@ -17,8 +17,8 @@ class Basket():
         
         if BASKET_SESSION_KEY not in request.session:
             basket = self.session[BASKET_SESSION_KEY] = {}
-            self.session['basket_qty'] = 0
-            self.session['basket_price'] = 0
+            # self.session['basket_qty'] = 0
+            # self.session['basket_price'] = 0
         else:
             basket = self.session[BASKET_SESSION_KEY]
 
@@ -27,28 +27,42 @@ class Basket():
     
     def add(self, product, product_qty):
         """
-        Add and update user's basket session data
+        Add item to basket session
         """
 
-        product_id = str(product.id)
-        product_price = product.price * product_qty
+        product_id = str(product.pk)
+        product_total_price = product.price * product_qty
 
         if product_id not in self.basket:
-            # add new basket info to session data
+            # add new item to basket (item not in basket)
             self.basket[product_id] = {
-                'total_price': str(product_price),
-                'qty': int(product_qty)
+                'price': str(product.price),
+                'qty': int(product_qty),
+                'total_price': str(product_total_price),
+                'title': product.title,
+                'product_detail_url': product.get_api_url,
             }
         else:
-            # update session basket data
+            # add item to basket (item already in basket)
             total_price = Decimal(self.basket[product_id]['total_price'])
-            total_price += product_price
+            total_price += product_total_price
 
             self.basket[product_id]['total_price'] = str(total_price)
             self.basket[product_id]['qty'] += product_qty
 
-        self.session['basket_qty'] += product_qty
-        self.session['basket_price'] += float(product_price)
+        # update to basket total qty and basket total price
+        # self.session['basket_qty'] += product_qty
+        # self.session['basket_price'] += float(product_total_price)
+
+        self.save()
+
+    
+    def update(self, product, product_qty):
+        product_id = str(product.pk)
+        product_total_price = product.price * product_qty
+
+        self.basket[product_id]['total_price'] = str(product_total_price)
+        self.basket[product_id]['qty'] = product_qty
 
         self.save()
     
@@ -62,8 +76,8 @@ class Basket():
         if product_id in self.basket:
             item = self.basket[product_id]
            
-            self.session['basket_qty'] -= item['qty']
-            self.session['basket_price'] -= float(item['total_price'])
+            # self.session['basket_qty'] -= item['qty']
+            # self.session['basket_price'] -= float(item['total_price'])
 
             del self.basket[product_id]
 
@@ -74,6 +88,7 @@ class Basket():
         """
         Save changes to basket session
         """
+
         self.session.modified = True
 
 
@@ -106,7 +121,8 @@ class Basket():
         """
         Get the basket total price
         """
-        return format(self.session['basket_price'], '.2f')
+        # return format(self.session['basket_price'], '.2f')
+        return sum(Decimal(item['total_price']) for item in self.basket.values())
         
 
     @property
@@ -114,5 +130,6 @@ class Basket():
         """
         Get the basket data and count the total qty
         """
-        return self.session['basket_qty']
+        # return self.session['basket_qty']
+        return sum(item['qty'] for item in self.basket.values())
 

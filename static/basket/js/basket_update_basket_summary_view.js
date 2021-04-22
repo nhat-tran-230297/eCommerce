@@ -1,5 +1,5 @@
 // Delete item
-$(document).on('click', '.delete-button', function(e) {
+$('.delete-button').on('click', function(e) {
   e.preventDefault();
   const productID = $(this).data('id');
 
@@ -20,36 +20,35 @@ $(document).on('click', '.delete-button', function(e) {
       $('#total').html(json.basket_price);
 
     },
-    error: (xhr, errMessage, err) => {
+    error: (err) => {
       console.log(err)
     }
   })
 })
 
 // Update item
-$(document).on('click', '.update-button', function(e) {
+$('.update-qty').on('change', function(e) {
   e.preventDefault();
   const productID = $(this).data('id');
-  console.log(productID)
 
   $.ajax({
     type: 'POST',
-    url: basketAddURL,
+    url: basketUpdateURL,
     data: {
       csrfmiddlewaretoken: CSRF_TOKEN,
       productID: productID,
-      productQty: $(`#select${productID}`).val(),
-      action: 'post'
+      productQty: $(`#update${productID}`).val(),
+      action: 'update'
     },
     success: (json) => {
-      // $('#select-qty').html(json.basket_qty);
+      // $('#update-qty').html(json.basket_qty);
       $(`#total-price${productID}`).html(json.item_total_price);
 
       $('#basket-qty').html(json.basket_qty);
       $('#basket-price').html(json.basket_price);
       $('#total').html(json.basket_price);
     },
-    error: (xhr, errMessage, err) => {
+    error: (err) => {
       console.log(err)
     }
   })
