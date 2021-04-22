@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -19,7 +20,7 @@ SECRET_KEY = os.environ.get("ECOMMERCE_SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["yourdomain.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "fns-ecommerce.herokuapp.com"]
 
 # Application definition
 
@@ -112,8 +113,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-PRODUCTION HEROKU
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # DEVELOPMENT
 STATIC_URL = "/static/"
@@ -166,3 +165,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
+
+
+# PRODUCTION HEROKU
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# automatically configure setting for Heroku Postgres db
+django_heroku.settings(locals())
