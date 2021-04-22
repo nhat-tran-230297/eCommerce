@@ -112,8 +112,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-# PRODUCTION HEROKU
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+PRODUCTION HEROKU
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # DEVELOPMENT
 STATIC_URL = "/static/"
@@ -159,7 +159,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
         # 'rest_framework.permissions.AllowAny',
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
     #     'rest_framework.authentication.TokenAuthentication',
