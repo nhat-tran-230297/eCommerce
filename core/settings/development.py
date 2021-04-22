@@ -26,3 +26,5 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         "INTERCEPT_REDIRECTS": False,
     }
+
+    # del DATABASES['default']['OPTIONS']['sslmode']

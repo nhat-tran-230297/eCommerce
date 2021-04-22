@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ.get("ECOMMERCE_SECRET_KEY")
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG_VALUE') == 'True'
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "fns-ecommerce.herokuapp.com"]
 
@@ -114,6 +114,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 
+# PRODUCTION HEROKU
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # DEVELOPMENT
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
@@ -167,8 +170,7 @@ REST_FRAMEWORK = {
 }
 
 
-# PRODUCTION HEROKU
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # automatically configure setting for Heroku Postgres db
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
