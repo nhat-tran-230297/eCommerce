@@ -173,4 +173,4 @@ REST_FRAMEWORK = {
 
 
 # automatically configure setting for Heroku Postgres db
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
