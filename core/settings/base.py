@@ -16,7 +16,7 @@ import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("ECOMMERCE_SECRET_KEY")
 
 DEBUG = os.environ.get('DEBUG_VALUE') == 'True'
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # django_rest_framework
     "rest_framework",
     "rest_framework.authtoken",
+    "api"
 ]
 
 MIDDLEWARE = [
