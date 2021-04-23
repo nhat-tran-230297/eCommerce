@@ -24,15 +24,15 @@ urlpatterns = [
     # Debug
     path("__debug__/", include(debug_toolbar.urls)),
 
-    # api
-    path("api/", include("api.urls", namespace="api")),
-
     #
     path("", include("store.urls", namespace="store")),
     path("basket/", include("basket.urls", namespace="basket")),
     path("account/", include("account.urls", namespace="account")),
     path("payment/", include("payment.urls", namespace="payment")),
     path("order/", include("order.urls", namespace="order")),
+
+    # api
+    # path("api/", include("api.urls", namespace="api")),
 
 ]
 

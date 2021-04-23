@@ -32,16 +32,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # django_rest_framework
-    'rest_framework',
-    'rest_framework.authtoken',
-
     # apps
+    "account.apps.AccountConfig",
     "store.apps.StoreConfig",
     "basket.apps.BasketConfig",
-    "account.apps.AccountConfig",
     "payment.apps.PaymentConfig",
     "order.apps.OrderConfig",
+
+    # django_rest_framework
+    "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
