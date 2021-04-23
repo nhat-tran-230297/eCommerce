@@ -50,7 +50,7 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     postcode = models.CharField(max_length=12, blank=True)
     address_line_1 = models.CharField(max_length=150, blank=True)
     address_line_2 = models.CharField(max_length=150, blank=True)
-    town_city = models.CharField(max_length=150, blank=True)
+    city = models.CharField(max_length=150, blank=True)
 
     # User Status
     is_active = models.BooleanField(default=False)
