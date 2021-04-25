@@ -40,7 +40,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
     def get_absolute_url(self):
-        return reverse("store:category_list", kwargs={"category_slug": self.slug})
+        return reverse("store:category_product_list", kwargs={"category_slug": self.slug})
 
     def __str__(self):
         return self.name
@@ -54,7 +54,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name="product", on_delete=models.PROTECT)
     product_creator = models.ForeignKey(UserBase, related_name="products", on_delete=models.CASCADE)
     
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     product_code = models.CharField(max_length=100, unique=True)
     author = models.CharField(max_length=255, default="admin")
     
