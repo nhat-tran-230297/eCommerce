@@ -12,7 +12,7 @@ urlpatterns = [
     path('product/<slug:slug>/', views.APIProductDetailView.as_view(), name='product_detail'),
     
     # Category
-    path('category/', views.APICategoryListView.as_view(), name='category_list'),
+    path('category/', views.APICategoryListView.as_view(), name='category_product_list'),
 
     # Basket 
     path('basket_test/', views.api_basket_view, name='basket_test'),

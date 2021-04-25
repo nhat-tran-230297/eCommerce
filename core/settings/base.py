@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # django_rest_framework
     "rest_framework",
     "rest_framework.authtoken",
-    "api"
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -72,6 +72,7 @@ TEMPLATES = [
 
                 # this view can be access globally
                 "store.context_processors.categories",
+                "store.context_processors.products",
                 "store.context_processors.currency",
                 "basket.context_processors.basket",
             ],
@@ -147,15 +148,15 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 BASKET_SESSION_KEY = "basket"
 
 # Currency
-CURRENCY = '€'
+CURRENCY = "€"
 
 # Stripe Payment
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_ENDPOINT_SECRET = "whsec_mLVq1VlXEqldUYbqeoO2EFor2i8UxWZ5"
-# stripe listen --forward-to localhost:8000/payment/webhook/
+# .\stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
 
-DOMAIN = 'aa'
+DOMAIN = "https://fns-ecommerce.herokuapp.com"
 
 
 # Django Rest Framework

@@ -24,7 +24,7 @@ class TestCategoryModel(TestCase):
     #     """
     #     data = self.data1
     #     response = self.client.post(
-    #         reverse('store:category_list', args=[data.slug]))
+    #         reverse('store:category_product_list', args=[data.slug]))
     #     self.assertEqual(response.status_code, 200)
 
 

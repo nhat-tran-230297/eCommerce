@@ -32,7 +32,7 @@ urlpatterns = [
     path("order/", include("order.urls", namespace="order")),
 
     # api
-    # path("api/", include("api.urls", namespace="api")),
+    path("api/", include("api.urls", namespace="api")),
 
 ]
 

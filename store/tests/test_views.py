@@ -45,8 +45,8 @@ class TestViewResponses(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_category_list_url(self):
-        url = reverse('store:category_list', kwargs={'category_slug': 'django'})
+    def test_category_product_list_url(self):
+        url = reverse('store:category_product_list', kwargs={'category_slug': 'django'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -56,7 +56,7 @@ class TestViewResponses(TestCase):
         engine = import_module(settings.SESSION_ENGINE)
         request.session = engine.SessionStore()
 
-        response = views.product_all(request)
+        response = views.home_view(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>CourseStore</title>', html)
         self.assertTrue(html.startswith('\n\n<!DOCTYPE html>\n'))
