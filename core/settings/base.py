@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'storages',
 
     # apps
     "account.apps.AccountConfig",
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -142,20 +143,11 @@ LOGIN_URL = "account:login"
 # Token valid period
 # PASSWORD_RESET_TIMEOUT_DAYS = 2
 
-# Set up Email server
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 # Basket Session Key
 BASKET_SESSION_KEY = "basket"
 
 # Currency
 CURRENCY = "€"
-
-# Stripe Payment
-STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-STRIPE_ENDPOINT_SECRET = "whsec_mLVq1VlXEqldUYbqeoO2EFor2i8UxWZ5"
-# .\stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
 
 DOMAIN = "https://fns-ecommerce.herokuapp.com"
 
@@ -173,8 +165,26 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
+# Set up Email server
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Stripe Payment
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_ENDPOINT_SECRET = "whsec_mLVq1VlXEqldUYbqeoO2EFor2i8UxWZ5"
+# .\stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
 
 
+# AWS bucket storage
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False       # prevent overwrite
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_REGION_NAME = 'eu-north-1'
 
 # automatically configure setting for Heroku Postgres db
 if not DEBUG:

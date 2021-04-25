@@ -13,3 +13,6 @@ pillow
 stripe
 coverage
 six
+
+boto3
+django-storages
