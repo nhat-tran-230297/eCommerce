@@ -36,6 +36,7 @@ class Basket():
         if product_id not in self.basket:
             # add new item to basket (item not in basket)
             self.basket[product_id] = {
+                'id': int(product_id),
                 'price': str(product.price),
                 'qty': int(product_qty),
                 'total_price': str(product_total_price),
@@ -49,10 +50,6 @@ class Basket():
 
             self.basket[product_id]['total_price'] = str(total_price)
             self.basket[product_id]['qty'] += product_qty
-
-        # update to basket total qty and basket total price
-        # self.session['basket_qty'] += product_qty
-        # self.session['basket_price'] += float(product_total_price)
 
         self.save()
 

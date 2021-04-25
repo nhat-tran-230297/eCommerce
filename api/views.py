@@ -23,17 +23,20 @@ from .serializers import (
 
 # Create your views here.
 class APIProductListView(generics.ListAPIView):
+    """
+    Product List
+    """
+
     queryset = Product.active_products.all()
     serializer_class = ProductSerializer
     permission_classes = (IsAuthenticated, )
     pagination_class = PageNumberPagination
 
-    # authentication_classes = (TokenAuthentication, )
-
     # search filter
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'product_code']
     ordering_fields = ['title', 'product_code', 'price']
+
 
 class APIProductCreateView(generics.CreateAPIView):
     serializer_class = ProductCreateSerializer
@@ -68,6 +71,7 @@ class APIBasketView(generics.ListAPIView):
         for pk, item_detail in basket.basket.items():
             title = item_detail['title']
             response['items_list'][title] = item_detail
+            
 
         return Response(response)
 
@@ -83,14 +87,20 @@ class APIBasketAddView(generics.CreateAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
-            title = request.POST['product_title']
+            product_id = int(request.POST['product_id'])
             qty = int(request.POST['qty'])
-            product = Product.active_products.filter(title=title).first()
+            
+            try:
+                product = Product.active_products.get(pk=product_id)
+            except Product.DoesNotExist:
+                return Response({
+                    'product_id': f'Product with id {product_id} does not exist'
+                })
 
             basket.add(product=product, product_qty=qty)
 
             response = {
-                'status': 'Product added',
+                'status': f'Product \'{product.title}\' added',
                 'total_qty': basket.get_basket_qty,
                 'total_price': basket.get_basket_price,
             }
@@ -109,13 +119,24 @@ class APIBasketRemoveView(generics.CreateAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
-            title = request.POST['product_title']
-            product = Product.active_products.filter(title=title).first()
+            product_id = int(request.POST['product_id'])
+
+            try:
+                product = Product.active_products.get(pk=product_id)
+            except Product.DoesNotExist:
+                return Response({
+                    'product_id': f'Product with id {product_id} does not exist'
+                })
+
+            if str(product_id) not in basket.basket:
+                return Response({
+                    "product_id": "This product is not in the basket"
+                })
 
             basket.delete(product=product)
 
             response = {
-                'status': 'Product removed',
+                'status': f'Product \'{product.title}\' removed',
                 'total_qty': basket.get_basket_qty,
                 'total_price': basket.get_basket_price,
             }
@@ -134,39 +155,29 @@ class APIBasketUpdateView(generics.UpdateAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
-            title = request.POST['product_title']
+            product_id = int(request.POST['product_id'])
             qty = int(request.POST['qty'])
-            product = Product.active_products.filter(title=title).first()
-
-            if not product:
+            
+            try:
+                product = Product.active_products.get(pk=product_id)
+            except Product.DoesNotExist:
                 return Response({
-                    "product_title": ["Product does not exist "]
+                    'product_id': f'Product with id {product_id} does not exist'
                 })
 
-            if str(product.pk) not in basket.basket:
+            if str(product_id) not in basket.basket:
                 return Response({
-                    "product_title": ["This product is not in the basket"]
+                    "product_id": "This product is not in the basket"
                 })
 
             basket.update(product=product, product_qty=qty)
 
             response = {
-                'status': 'Product updated',
+                'status': f'Product \'{product.title}\' updated',
                 'total_qty': basket.get_basket_qty,
                 'total_price': basket.get_basket_price,
             }
 
             return Response(response)
 
-
-@api_view(['GET'])
-def api_basket_view(request):
-    basket = Basket(request)
-
-    response = {}
-    for pk, item_detail in basket.basket.items():
-        title = item_detail['title']
-        response[title] = item_detail
-
-    return Response(response)
 

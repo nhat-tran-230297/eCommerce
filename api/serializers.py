@@ -39,7 +39,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-
+        Add category and product_creator field to create view
         """
 
         category = Category.objects.filter(name=validated_data['category']).first()
@@ -53,7 +53,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-
+        Update category and product_creator field to update view
         """
         
         category = Category.objects.filter(name=validated_data['category']).first()
@@ -71,23 +71,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class BasketAddSerializer(serializers.Serializer):
-    product_title = serializers.ChoiceField(
-        choices=[product.title for product in Product.active_products.all()]
-    )
+    product_id = serializers.IntegerField(min_value=1)
 
     qty = serializers.IntegerField(min_value=1, max_value=None)
 
 
 class BasketRemoveSerializer(serializers.Serializer):
-    product_title = serializers.ChoiceField(
-        choices=[product.title for product in Product.active_products.all()]
-    )
+    product_id = serializers.IntegerField(min_value=1)
 
 
 class BasketUpdateSerializer(serializers.Serializer):
-    product_title = serializers.CharField()
+    product_id = serializers.CharField()
 
     qty = serializers.IntegerField(min_value=1, max_value=None)
 
