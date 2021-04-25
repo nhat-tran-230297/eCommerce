@@ -1,0 +1,65 @@
+{% extends "../../base.html" %}
+
+{% block title %}ECommerce - {{ search_input }}{% endblock title %}
+
+{% block content %}
+<main>
+
+  <div class="album py-5">
+    <div class="container">
+
+      <div class="pb-3 h2">{{ count }} results for "<strong>{{ search_input }}</strong>"</div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+        {% for product in search_results %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img alt="Responsive image" height="170" width="100%" src="{{ product.image.url }}">
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">
+                  {{ product.title|slice:":50" }}{% if product.title|length > 50 %}...{% endif %}
+                </a>
+              </p>
+              <div class="fw-bold">{{ currency_context_processor }}{{product.price}}</div>
+            </div>
+          </div>
+        </div>
+
+        {% empty %}
+        <p>No result. <a href="{% url 'store:home_view' %}">Back to Shop</a></p>
+        {% endfor %}
+      </div>
+  
+      <!-- Pagination -->
+      <div class="text-center">
+        {% if is_paginated %}
+          {% if page_obj.has_previous %}
+            <a href="?search_input={{ request.GET.search_input }}&page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary mt-5">Previous</a>
+          {% else %}
+            <a class="btn mt-5 disabled">Previous</a>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+              {% if num == page_obj.number %}
+                <a href="?search_input={{ request.GET.search_input }}&page={{ num }}" class="btn btn-secondary mt-5">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?search_input={{ request.GET.search_input }}&page={{ num }}" class="btn btn-outline-secondary mt-5">{{ num }}</a>
+              
+              {% elif page_obj.paginator.num_pages > page_obj.number|add:'3' and forloop.last %}
+                <a class="btn mt-5 ms-2 disabled">⋯</a>
+                <a class="btn mt-5 disabled">{{ page_obj.paginator.num_pages }}</a>
+              {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a href="?search_input={{ request.GET.search_input }}&page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary mt-5 ms-2">Next</a>
+          {% else %}
+            <a class="btn mt-5 disabled">Next</a>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

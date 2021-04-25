@@ -8,24 +8,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>{% block title %}ECommerce{% endblock title %}</title>
+
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-  </script>
-
   <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+  <!-- add icon link -->
+  <link rel="icon" href="data:image/png;base64,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" type="image/x-icon">
 
-  <title>{% block title %}ECommerce{% endblock title %}</title>
   <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
   <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
 
   {% block stylesheet %} {% endblock stylesheet %}
+
 </head>
 
 <body>
@@ -35,11 +34,7 @@
       <div class="container-fluid px-md-4">
         <div class="d-flex w-100 navbar-collapse">
           <a class="navbar-brand d-flex-inline" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-shop"
-              viewBox="0 0 16 16">
-              <path
-                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16"> <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" /> </svg>
           </a>
 
           <!-- Category markdown -->
@@ -48,14 +43,10 @@
               <a class="nav-link dropdown-toggle d-md-block fw500" href="#" id="navbarDropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Category
-                <i class="ps-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-chevron-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                  </svg></i>
+                <i class="ps-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" /> </svg></i>
               </a>
-              <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'store:product_all' %}">All</a></li>
+              <ul class="dropdown-menu rounded-2 border-2 border" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'store:home_view' %}">All</a></li>
 
                 <!-- Category list -->
                 {% for category in categories_context_processor %}
@@ -65,9 +56,24 @@
             </li>
           </ul>
 
-          <!-- Right Navigation Bar -->
+          
+          <!-- Search Field -->  
+          {% if 'account' not in request.path %}
+            <form class="me-auto" id="search-form" action="{% url 'store:product_search_results' %}" method="get">
+              <div class="row g-2">
+                <div class="col-11">
+                  <input class="form-control" id="search-input" name="search_input" type="search" placeholder="Search" />
+                </div>
 
-          <div>
+                <div class="col-1">
+                  <input class="btn btn-primary" type="submit" value="Search" />
+                </div>
+              </div>
+            </form>
+          {% endif %}
+          
+          <!-- Right Navigation Bar -->
+          <div class="">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
               aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -75,18 +81,13 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <!-- User Dashboard -->
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                   <a type="button" role="button" href="{% url 'account:dashboard' %}"
                     class="btn btn-outline-secondary border-0 basket-btn">
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="currentColor" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                    </div>
+                    <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> <circle cx="12" cy="7" r="4"></circle> </svg> </div>
                     <span class="fs15 fw500">{{ request.user }}</span>
                   </a>
                 </li>
@@ -95,14 +96,7 @@
                 <li class="nav-item">
                   <a type="button" role="button" href="{% url 'account:logout' %}"
                     class="btn btn-outline-secondary border-0 basket-btn">
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-door-closed" viewBox="0 0 16 16">
-                        <path
-                          d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z" />
-                        <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
-                      </svg>
-                    </div>
+                    <div> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16"> <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z" /> <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" /> </svg> </div>
                     <span class="fs15 fw500">Logout</span>
                   </a>
                 </li>
@@ -112,18 +106,10 @@
                 <li class="nav-item">
                   <a type="button" role="button" href="{% url 'account:login' %}"
                     class="btn btn-outline-secondary border-0 basket-btn">
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-door-open" viewBox="0 0 16 16">
-                        <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
-                        <path
-                          d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
-                      </svg>
-                    </div>
+                    <div> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16"> <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" /> <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" /> </svg> </div>
                     <span class="fs15 fw500">Login</span>
                   </a>
                 </li>
-
                 {% endif %}
 
                 <!-- Basket -->
@@ -139,23 +125,15 @@
                       {% endif %}
                     </div>
 
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                        class="bi bi-cart3" viewBox="0 0 16 16">
-                        <path
-                          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                      </svg>
-                    </div>
+                    <div> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" /> </svg> </div>
                     <span class="fs15 fw500">Basket</span>
                   </a>
                 </li>
+
               </ul>
-
-
             </div>
           </div>
         </div>
-
       </div>
     </nav>
   </header>
@@ -213,14 +191,60 @@
 
     <hr>
     <div class="row">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-shop"
-        viewBox="0 0 16 16">
-        <path
-          d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16"> <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" /> </svg>
       <small class="d-block mb-3 mt-2 text-muted text-center">&copy; 2020-2021</small>
     </div>
   </footer>
+
+
+  <!-- Scripts -->
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"> </script>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- Search Field -->
+  <script>
+    $('#search-input').on('keydown', function(event) {
+      // get products list
+      const productsList = [];
+      {% for product in products_context_processor %}
+        productsList.push({
+            value: '{{ product.title }}',
+            url: '{{ product.get_absolute_url }}'
+        })
+      {% endfor %}
+
+      // prevent refreshing the page when search value is empty
+      if(event.keyCode == 13) {
+        if($("#search-input").val().length == 0) {
+            event.preventDefault();
+            return false;
+        }
+      }
+
+      // display seach value and autocomplete
+      $(this).autocomplete({
+        source: productsList,
+        autoFocus: true,
+        select: function( event, ui ) { 
+          window.location.href = ui.item.url;
+        }
+      })
+    });
+
+    $('#search-form').on('submit', function() {
+      if($("#search-input").val().length == 0) {
+          event.preventDefault();
+          return false;
+      }
+    })
+  </script>
 
   {% block script %}
   {% endblock script %}

@@ -17,7 +17,7 @@
 
   <div class="container">
     {% if basket_context_processor.get_basket_qty == 0 %}
-      <div>Your basket is empty. <a href="{% url 'store:product_all' %}">Back to Shop</a></div>
+      <div>Your basket is empty. <a href="{% url 'store:home_view' %}">Back to Shop</a></div>
     {% else %}
     
     <div class="row g-3">

@@ -1,42 +1,89 @@
 from django.shortcuts import get_object_or_404, render
+from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 
 from .models import Category, Product
 
 # Create your views here.
 
 
-def product_all(request):
+class HomeView(generic.ListView):
     """
     Home page - display all active products
     """
 
-    products = Product.active_products.all()
+    model = Product
+    queryset = Product.active_products.all()
+    template_name = 'store/home.html'
+    context_object_name = 'products'
 
-    context = {"products": products}
-    return render(request, "store/home.html", context)
+    # pagination
+    paginate_by = 1
 
 
-def product_detail(request, slug:str):
+class ProductDetailView(generic.DetailView):
     """
     Product detail view
     """
 
-    product = get_object_or_404(Product, slug=slug, is_instock=True)
+    model = Product
+    template_name = 'store/product/product_detail.html'
+    context_object_name = 'product'
 
-    context = {"product": product}
-    return render(request, "store/product/detail.html", context)
 
-
-def category_list(request, category_slug:str):
+class CategoryProductListView(generic.ListView):
     """
     Category list view (lists of products regarding the category)
     """
 
-    category = get_object_or_404(Category, slug=category_slug)
-    products = Product.objects.filter(category=category)
+    template_name = 'store/category/category_product_list.html'
+    context_object_name = 'products'
+    paginate_by = 3
 
-    context = {
-        "category": category,
-        "products": products,
-    }
-    return render(request, "store/product/category.html", context)
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
+
+        return Product.objects.filter(category=self.category)
+
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+
+        # Add 'category' to context data
+        context['category'] = self.category
+
+        return context
+
+
+class ProductSearchResultsView(generic.ListView):
+    """
+    Search Results
+    """
+
+    template_name = 'store/product/product_search_results.html'
+    context_object_name = 'search_results'
+    paginate_by = 1
+
+
+    def get_queryset(self):
+        self.search_input = self.request.GET['search_input']
+        search_results = Product.active_products.filter(title__icontains=self.search_input)
+        self.count = search_results.count()
+
+        return search_results
+
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        
+        context['search_input'] = self.search_input
+        context['count'] = self.count
+
+        return context
+
+

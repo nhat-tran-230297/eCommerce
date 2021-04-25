@@ -1,4 +1,14 @@
 /* Bootstrap Over-ride */
+body {
+    min-width: 1000px;
+    margin: 0 auto; 
+    overflow: hidden;
+}
+
+#search-form {
+    width: 50%;
+}
+
 @media (min-width: 1000px){
     .container{
         max-width: 1000px;
@@ -57,6 +67,7 @@ html, body, p, div{
     .logo {
         width: 49px;
     }
+
 }
 /* md */
 @media (min-width: 992px) {
