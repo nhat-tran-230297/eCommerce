@@ -61,7 +61,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="images/", default="images/default.png")
     slug = models.SlugField(max_length=255, unique=True)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
     is_instock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     # auto_now_add: trigger only once

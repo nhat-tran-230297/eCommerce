@@ -2,7 +2,8 @@
 body {
     min-width: 1000px;
     margin: 0 auto; 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #search-form {
