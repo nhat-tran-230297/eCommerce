@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -151,16 +152,11 @@ CURRENCY = "€"
 
 DOMAIN = "https://fns-ecommerce.herokuapp.com"
 
-
 # Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-        # 'rest_framework.permissions.AllowAny',
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.TokenAuthentication',
-    # ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
@@ -177,7 +173,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_ENDPOINT_SECRET = "whsec_mLVq1VlXEqldUYbqeoO2EFor2i8UxWZ5"
-# .\stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
+# .\stripe listen --forward-to http://127.0.0.1:8000/payment/webhook/
+
 
 
 # AWS bucket storage
