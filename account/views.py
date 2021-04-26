@@ -7,10 +7,11 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+from order.models import Order
+
 from .forms import AccountEditForm, RegistrationForm
 from .models import UserBase
 from .tokens import account_activation_token
-from .utils import orders_list
 
 # Create your views here.
 
@@ -20,7 +21,8 @@ def account_dashboard(request):
     Dashboard view (list of completed orders)
     """
 
-    orders = orders_list(request)
+    user_id = request.user.id
+    orders = Order.objects.filter(user_id=user_id, billing_status=True)
 
     return render(request, 'account/user/dashboard.html', {'orders': orders})
 
@@ -77,14 +79,16 @@ def account_register(request):
             # Setup email
             current_site = get_current_site(request)
             subject = 'Activate your Account'
+            protocol = 'https' if request.is_secure() else 'http'
             message = render_to_string('account/registration/account_activation_email.html', {
+                'protocol': protocol,
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
 
-            user.email_user(subject=subject, message=message)
+            user.email_user(subject=subject, message=message, email=user.email)
 
             return render(request, 'account/registration/account_activation_complete.html')
 
@@ -98,9 +102,6 @@ def account_activate(request, uidb64, token):
     """
     Account activation
     """
-
-    # uid = force_text(urlsafe_base64_decode(uidb64))
-    # user = get_object_or_404(UserBase, pk=uid)
 
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))

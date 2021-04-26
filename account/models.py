@@ -66,12 +66,12 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Account"
         verbose_name_plural = "Accounts"
 
-    def email_user(self, subject, message):
+    def email_user(self, subject, message, email):
         send_mail(
             subject,
             message,
             "l@1.com",
-            [self.email],
+            [email],
             fail_silently=False,
         )
 

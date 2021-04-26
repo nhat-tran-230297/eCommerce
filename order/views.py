@@ -12,8 +12,9 @@ def add(request):
 
     if request.POST.get('action') == 'post':
         user_id = request.user.id
-        order_key = request.POST.get('order_key')
         basket_price = basket.get_basket_price
+        order_key = request.POST['order_key']
+        print(order_key)
 
         # Check if order (by order_key) exists
         if Order.objects.filter(order_key=order_key).exists():
@@ -21,11 +22,14 @@ def add(request):
         else:
             order = Order.objects.create(
                 user_id=user_id, 
-                full_name='Name Name',
-                address1='address1',
-                address2='address2',
+                order_key=order_key,
+                full_name=request.POST['fullname'],
+                address1=request.POST['address1'],
+                address2=request.POST['address2'],
+                city=request.POST['city'],
+                country=request.POST['country'],
+                post_code=request.POST['postcode'],
                 total_price=basket_price,
-                order_key=order_key
             )
 
             for item in basket:
