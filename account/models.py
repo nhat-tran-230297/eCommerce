@@ -42,7 +42,6 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('username'), max_length=100, unique=True)
     first_name = models.CharField(_('First Name'), max_length=150, blank=True)
     last_name = models.CharField(_('Last Name'), max_length=150, blank=True)
-    about = models.TextField(_("about"), max_length=500, blank=True)
 
     # Delivery details
     country = CountryField()

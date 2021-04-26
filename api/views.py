@@ -34,7 +34,7 @@ class APIProductListView(generics.ListAPIView):
 
     # search filter
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['title', 'product_code']
+    search_fields = ['title', '=product_code']
     ordering_fields = ['title', 'product_code', 'price']
 
 

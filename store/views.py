@@ -20,7 +20,7 @@ class HomeView(generic.ListView):
     context_object_name = 'products'
 
     # pagination
-    paginate_by = 1
+    paginate_by = 20
 
 
 class ProductDetailView(generic.DetailView):
@@ -40,7 +40,7 @@ class CategoryProductListView(generic.ListView):
 
     template_name = 'store/category/category_product_list.html'
     context_object_name = 'products'
-    paginate_by = 3
+    paginate_by = 20
 
 
     def get_queryset(self):
@@ -66,7 +66,7 @@ class ProductSearchResultsView(generic.ListView):
 
     template_name = 'store/product/product_search_results.html'
     context_object_name = 'search_results'
-    paginate_by = 1
+    paginate_by = 20
 
 
     def get_queryset(self):
