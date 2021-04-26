@@ -1,24 +1,19 @@
 
 from django.shortcuts import render
 from rest_framework import filters, generics
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+from rest_framework.authentication import (SessionAuthentication,
+                                           TokenAuthentication)
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
-
-from store.models import Category, Product
 from basket.basket import Basket
+from store.models import Category, Product
 
-from .serializers import (
-    CategorySerializer, 
-    ProductCreateSerializer,
-    ProductSerializer,
-    BasketAddSerializer,
-    BasketRemoveSerializer,
-    BasketUpdateSerializer
-)
+from .serializers import (BasketAddSerializer, BasketRemoveSerializer,
+                          BasketUpdateSerializer, CategorySerializer,
+                          ProductCreateSerializer, ProductSerializer)
 
 
 # Create your views here.
