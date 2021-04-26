@@ -8,6 +8,9 @@ if DEBUG:
 
     INSTALLED_APPS += ("debug_toolbar",)
 
+    # Email server
+    # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
     DEBUG_TOOLBAR_PANELS = [
         "debug_toolbar.panels.versions.VersionsPanel",
         "debug_toolbar.panels.timer.TimerPanel",
