@@ -58,7 +58,7 @@
 
           
           <!-- Search Field -->  
-          {% if 'account' not in request.path %}
+          {% if 'account' not in request.path and 'payment' not in request.path %}
             <form class="me-auto" id="search-form" action="{% url 'store:product_search_results' %}" method="get">
               <div class="row g-2">
                 <div class="col-11">
