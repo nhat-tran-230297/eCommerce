@@ -21,6 +21,33 @@ body {
         padding:0 24px;
     }
 }
+
+/* Navigation-Main*/
+
+/* xs */
+.logo {
+    width: 49px;
+    height: auto;
+}
+/* sm */
+@media (min-width: 768px) {
+    .logo {
+        width: 49px;
+    }
+}
+/* md */
+@media (min-width: 992px) {
+    .logo {
+        width: 60px;
+    }
+}
+/* lg */
+@media (min-width: 1200px) {
+    .logo {
+        width: 70px;
+    }
+}
+
 .dropdown-toggle::after {
     display: none;
 }
@@ -53,34 +80,6 @@ html, body, p, div{
 }
 .fw500{
     font-weight: 500;
-}
-
-
-/* Navigation-Main*/
-
-/* xs */
-.logo {
-    width: 49px;
-    height: auto;
-}
-/* sm */
-@media (min-width: 768px) {
-    .logo {
-        width: 49px;
-    }
-
-}
-/* md */
-@media (min-width: 992px) {
-    .logo {
-        width: 60px;
-    }
-}
-/* lg */
-@media (min-width: 1200px) {
-    .logo {
-        width: 70px;
-    }
 }
 
 /* Footer */
