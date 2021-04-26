@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Hi {{ user.username }},
+
+Good News!
+
+Your order has been placed and ready to be shipped. You can view the order detail by clicking the link below.
+{{ protocol }}://{{ domain }}{% url 'account:dashboard' %} 
+
+
+{% endautoescape %}
