@@ -3,7 +3,7 @@
 Hi {{ user.username }},
 
 Your account has been successfully created. Please click below to activate your account
-http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
 
 
 {% endautoescape %}
