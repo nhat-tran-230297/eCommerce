@@ -39,6 +39,14 @@ Features:
 * Keep record of orders (complete payment)
 * Create account / login
 
+## Payment
+For the information of card payment, you can use any [test-authorized card number](https://stripe.com/docs/testing#cards), provided by [Stripe](https://stripe.com/docs) or you can use one below.
+
+Card number: 4242424242424242 <br>
+The date expiration of the card has to be a date in the future.
+
+![image](https://user-images.githubusercontent.com/27566386/116315726-97a6a000-a7b9-11eb-8c9c-f642eac4d45b.png)
+
 <br>
 
 # REST API
@@ -162,8 +170,39 @@ i.e.
     "qty": int<br>
 }
 
+<br>
 
 # File Contents
+
+The file contents consists of 7 apps:
+* [core](https://github.com/nhat-tran-230297/eCommerce/tree/main/core): main app that handles settings and configuration
+* [account](https://github.com/nhat-tran-230297/eCommerce/tree/main/account): 
+    * models: User 
+    * views: login, create account, activate account
+* [store](https://github.com/nhat-tran-230297/eCommerce/tree/main/store): 
+    * models: Product, Category 
+    * views: home view, product list, product detail, search for products
+* [basket](https://github.com/nhat-tran-230297/eCommerce/tree/main/basket): 
+    * views: create basket session that stores product items, quantity and total price
+* [payment](https://github.com/nhat-tran-230297/eCommerce/tree/main/payment):  
+    * views: connect with Stripe, collect input date from payment form, create order and send email 
+* [order](https://github.com/nhat-tran-230297/eCommerce/tree/main/order): 
+    * models: Order, OrderItem 
+    * views: when payment completes, create orders (including items from basket)
+* [api](https://github.com/nhat-tran-230297/eCommerce/tree/main/api)
+    * create REST API using Django Rest Framework
+    * views: 
+        * Search and list
+            * Allow searching products by name and product code
+            * Allow ordering search result by name and product code
+        * View details of a product
+            * Show product details from a single endpoint
+        * Shopping cart
+            * A product can be added to a cart and removed from it
+        * Product management
+            * Allow creating, modifying and deleting product
+
+
 ```
 📦core
  ┣ 📂settings
