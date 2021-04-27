@@ -20,6 +20,7 @@ from .serializers import (BasketAddSerializer, BasketRemoveSerializer,
 class APIProductListView(generics.ListAPIView):
     """
     Product List
+    Methods: GET
     """
 
     queryset = Product.active_products.all()
@@ -34,6 +35,11 @@ class APIProductListView(generics.ListAPIView):
 
 
 class APIProductCreateView(generics.CreateAPIView):
+    """
+    Product Create
+    Methods: POST
+    """
+
     serializer_class = ProductCreateSerializer
     permission_classes = (IsAuthenticated, IsAdminUser)
 

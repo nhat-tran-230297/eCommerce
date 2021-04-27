@@ -56,7 +56,7 @@ class TestViewResponses(TestCase):
         engine = import_module(settings.SESSION_ENGINE)
         request.session = engine.SessionStore()
 
-        response = views.home_view(request)
+        response = views.HomeView.as_view()(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>CourseStore</title>', html)
         self.assertTrue(html.startswith('\n\n<!DOCTYPE html>\n'))

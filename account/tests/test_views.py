@@ -12,7 +12,7 @@ class TestAccountView(TestCase):
 
 
     def test_unactivated_user_view(self):
-        is_logged_in = self.client.login(email='admin@gmail.com', password='asadmin')
+        is_logged_in = self.client.login(email='admin@gmail.com', password='admin')
 
         self.assertEqual(self.user1.is_active, False)
         self.assertEqual(is_logged_in, False)
