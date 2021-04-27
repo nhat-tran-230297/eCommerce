@@ -174,6 +174,7 @@ STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_ENDPOINT_SECRET = "whsec_mLVq1VlXEqldUYbqeoO2EFor2i8UxWZ5"
 # .\stripe listen --forward-to http://127.0.0.1:8000/payment/webhook/
+# .\stripe listen --forward-to https://fns-ecommerce.herokuapp.com/payment/webhook/
 
 
 
