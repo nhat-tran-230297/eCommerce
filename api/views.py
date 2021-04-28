@@ -21,6 +21,7 @@ class APIProductListView(generics.ListAPIView):
     """
     Product List
     Methods: GET
+    Permissions: IsAuthenticated
     """
 
     queryset = Product.active_products.all()
@@ -38,6 +39,7 @@ class APIProductCreateView(generics.CreateAPIView):
     """
     Product Create
     Methods: POST
+    Permissions: IsAuthenticated
     """
 
     serializer_class = ProductCreateSerializer
@@ -45,6 +47,12 @@ class APIProductCreateView(generics.CreateAPIView):
 
 
 class APIProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Displaying detail/modify/delete single product
+    Methods: GET, PUT, DELETE
+    Permissions: IsAdminUser
+    """
+
     queryset = Product.active_products.all()
     serializer_class = ProductCreateSerializer
     lookup_field = 'slug'
@@ -52,6 +60,12 @@ class APIProductDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class APICategoryListView(generics.ListAPIView):
+    """
+    Displaying list of categories
+    Methods: GET
+    Permissions: IsAuthenticated
+    """
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (IsAuthenticated, )
@@ -59,6 +73,12 @@ class APICategoryListView(generics.ListAPIView):
     
 
 class APIBasketView(generics.ListAPIView):
+    """
+    Displaying all items in the shopping cart
+    Methods: GET
+    Permissions: AllowAny
+    """
+
     permission_classes = (AllowAny, )
 
     def get(self, request, *args, **kwargs):
@@ -78,6 +98,13 @@ class APIBasketView(generics.ListAPIView):
 
 
 class APIBasketAddView(generics.CreateAPIView):
+    """
+    Add item to shopping cart
+    Methods: POST
+    Permissions: AllowAny
+    """
+
+
     serializer_class = BasketAddSerializer
     permission_classes = (AllowAny, )
 
@@ -110,6 +137,13 @@ class APIBasketAddView(generics.CreateAPIView):
 
 
 class APIBasketRemoveView(generics.CreateAPIView):
+    """
+    Remove item from basket
+    Methods: POST
+    Permissions: AllowAny
+    """
+
+
     serializer_class = BasketRemoveSerializer
     permission_classes = (AllowAny, )
 
@@ -146,6 +180,12 @@ class APIBasketRemoveView(generics.CreateAPIView):
 
 
 class APIBasketUpdateView(generics.UpdateAPIView):
+    """
+    Update item in the basket
+    Methods: PUT
+    Permissions: AllowAny
+    """
+
     serializer_class = BasketUpdateSerializer
     permission_classes = (AllowAny, )
 
