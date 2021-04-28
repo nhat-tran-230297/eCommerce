@@ -156,6 +156,7 @@ i.e.
 ## Shopping cart remove: [``/api/basket/remove/``](https://fns-ecommerce.herokuapp.com/api/basket/remove/)
 * Methods: POST
 * Permissions: [AllowAny](https://www.django-rest-framework.org/api-guide/permissions/#allowany)
+* Description: Remove a specific item from the basket
 * Request body: {<br>
     "product_id": int, <br>
 }
@@ -165,6 +166,7 @@ i.e.
 ## Shopping cart update: [``/api/basket/update/``](https://fns-ecommerce.herokuapp.com/api/basket/update/)
 * Methods: PUT
 * Permissions: [AllowAny](https://www.django-rest-framework.org/api-guide/permissions/#allowany)
+* Description: Update a specific item in the basket
 * Request body: {<br>
     "product_id": int, <br>
     "qty": int<br>
