@@ -3,10 +3,15 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
 
+from account.models import UserBase
+
 
 class TestAPIUserAuthentication(APITestCase):
     def setUp(self):
-        self.user1 = UserBase.objects.create_user(email='admin@gmail.com', username='admin',  password='admin', is_active=True)
+        self.user1 = UserBase.objects.create_user(
+            email='admin@gmail.com', username='admin',  password='admin', 
+            is_active=True
+        )
 
     
     def test_login_success(self):

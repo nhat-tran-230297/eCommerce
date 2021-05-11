@@ -13,10 +13,10 @@ class TestBasketView(TestCase):
         Product.objects.create(category_id=1, title='django beginners',     product_creator_id=1,
                                slug='django-beginners', price='20.00', image='django')
         
-        Product.objects.create(category_id=1, title='django intermediate', product_creator_id=1,
+        Product.objects.create(category_id=1, title='django intermediate', product_code= 'code1', product_creator_id=1,
                                slug='django-intermediate', price='20.00', image='django')
         
-        Product.objects.create(category_id=1, title='django advanced', product_creator_id=1,
+        Product.objects.create(category_id=1, title='django advanced', product_code= 'code2', product_creator_id=1,
                                slug='django-advanced', price='20.00', image='django')
 
     

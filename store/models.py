@@ -132,7 +132,6 @@ class Product(models.Model):
                 # when title is updated, check the slug 
                 self.slug = self._check_unique_slug(slug_title)
         
-        print(self.title)
 
         super().save(*args, **kwargs)
         self.__original_title = self.title
